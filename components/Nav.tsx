@@ -13,7 +13,8 @@ import {
 import { BuiltInProviderType } from 'next-auth/providers/index';
 
 function Nav() {
-  const isUserLoggedIn = true;
+  const { data: session } = useSession();
+
   const [providers, setProviders] = useState<Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
@@ -21,10 +22,11 @@ function Nav() {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    (async () => {
+    const setUpProviders = async () => {
       const response = await getProviders();
       setProviders(response);
-    })();
+    };
+    setUpProviders();
   }, []);
 
   return (
@@ -39,10 +41,12 @@ function Nav() {
         />
         <p className='logo_text'>Promptopia</p>
       </Link>
+      {/* <p>Session: {session?.user.email}</p>
+      <p>Provider: {JSON.stringify(providers)}</p> */}
 
       {/* Desktop Navigation */}
       <div className='sm:flex hidden'>
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className='flex gap-3 md:gap-5'>
             <Link href='/create-prompt' className='black_btn'>
               Create Post
@@ -81,10 +85,9 @@ function Nav() {
           </>
         )}
       </div>
-
       {/* Mobile Navigation */}
       <div className=' sm:hidden flex relative'>
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className='flex'>
             <Image
               src='/assets/images/logo.svg'
