@@ -85,12 +85,14 @@ function Nav() {
           </>
         )}
       </div>
+
       {/* Mobile Navigation */}
+
       <div className=' sm:hidden flex relative'>
         {session?.user ? (
           <div className='flex'>
             <Image
-              src='/assets/images/logo.svg'
+              src={session?.user.image!} //{session?.picture}
               alt='profile'
               width={30}
               height={30}

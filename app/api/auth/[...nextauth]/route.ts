@@ -1,21 +1,17 @@
-import { DefaultSession, DefaultUser } from 'next-auth';
 import NextAuth from 'next-auth/next';
-import { Awaitable, Session, Profile } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { DefaultUser, Session } from '@node_modules/next-auth/core/types';
+
 import User from '@models/user';
 import { connectToDB } from '@utils/database';
 
+interface IUser extends DefaultUser {
+  image?: string;
+}
 declare module 'next-auth' {
-  interface Session extends DefaultSession {
-    user: {
-      id: string;
-      name: string;
-      email: string;
-    };
-    username: string; // Here you are telling typescript that you session will have the username property, if you want your client to have access to this property
-  }
-  interface User extends DefaultUser {
-    username: string; // the user will now have the property
+  interface User extends IUser {}
+  interface Session {
+    user: User;
   }
 }
 
@@ -28,7 +24,7 @@ const handler = NextAuth({
   ],
   secret: process.env.NEXTAUTH_SECRET, // To be added
   callbacks: {
-    async session({ session }: { session: Session }) {
+    async session({ session }) {
       const sessionUser = await User.findOne({
         email: session?.user?.email,
       });
@@ -37,15 +33,22 @@ const handler = NextAuth({
     },
     async signIn({ account, profile, user, credentials }) {
       try {
+        const a = profile;
+
         if (!profile) {
           throw new Error('No profile found');
         }
         console.log(profile);
+        console.log(user);
+        console.log(account);
+
+        profile.image = user.image!;
 
         await connectToDB();
 
         // Check if user exists
         const userExists = await User.findOne({ email: profile.email });
+        const picture = (profile as unknown as { picture: string }).picture;
 
         // If not, create user
         if (!userExists) {
