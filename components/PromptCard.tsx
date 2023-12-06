@@ -1,9 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
+
+type Post = {
+  creator: {
+    _id: string;
+    image: string;
+    username: string;
+    email: string;
+  };
+  tag: string;
+  prompt: string;
+  image: string;
+};
 
 const PromptCard = ({
   post,
@@ -11,16 +23,16 @@ const PromptCard = ({
   handleDelete,
   handleTagClick,
 }: {
-  post: any;
-  handleEdit: any;
-  handleDelete: any;
-  handleTagClick: any;
+  post: Post;
+  handleEdit?: MouseEventHandler<HTMLParagraphElement>;
+  handleDelete?: MouseEventHandler<HTMLParagraphElement>;
+  handleTagClick?: any;
 }) => {
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
 
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState('');
 
   const handleProfileClick = () => {
     console.log(post);
@@ -33,7 +45,7 @@ const PromptCard = ({
   const handleCopy = () => {
     setCopied(post.prompt);
     navigator.clipboard.writeText(post.prompt);
-    setTimeout(() => setCopied(false), 3000);
+    setTimeout(() => setCopied(''), 3000);
   };
 
   return (

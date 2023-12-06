@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEventHandler } from 'react';
 
 import PromptCard from './PromptCard';
 
@@ -67,8 +67,8 @@ const Feed = () => {
       }, 500)
     );
   };
-
-  const handleTagClick = (tagName: any) => {
+  const x: string = '0';
+  const handleTagClick = (tagName: string) => {
     setSearchText(tagName);
 
     const searchResult = filterPrompts(tagName);
