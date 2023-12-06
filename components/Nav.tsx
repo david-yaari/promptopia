@@ -61,7 +61,7 @@ function Nav() {
 
             <Link href='/profile' className=''>
               <Image
-                src='/assets/images/logo.svg'
+                src={session?.user.image!}
                 alt='profile'
                 width={30}
                 height={30}

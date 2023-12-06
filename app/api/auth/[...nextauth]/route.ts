@@ -38,9 +38,9 @@ const handler = NextAuth({
         if (!profile) {
           throw new Error('No profile found');
         }
-        console.log(profile);
-        console.log(user);
-        console.log(account);
+        // console.log(profile);
+        // console.log(user);
+        // console.log(account);
 
         profile.image = user.image!;
 
@@ -52,11 +52,17 @@ const handler = NextAuth({
 
         // If not, create user
         if (!userExists) {
-          await User.create({
+          User.create({
             email: profile.email,
             username: profile.name?.replace(/\s/g, '').toLowerCase(),
             image: profile.image,
-          });
+          })
+            .then(() => {
+              console.log('User created');
+            })
+            .catch((err: Error) => {
+              console.log(err);
+            });
         }
 
         return true;
