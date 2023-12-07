@@ -11,13 +11,9 @@ function CreatePromt() {
   const { data: session } = useSession();
 
   const [submitting, setSubmitting] = useState(false);
-  const [post, setSPost] = useState<Post>({
-    _id: '',
-    username: '',
-    email: '',
+  const [post, setSPost] = useState<any>({
     prompt: '',
     tag: '',
-    image: '',
   });
 
   const createPrompt = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,12 +40,8 @@ function CreatePromt() {
     } finally {
       setSubmitting(false);
       setSPost({
-        _id: '',
-        username: '',
-        email: '',
         prompt: '',
         tag: '',
-        image: '',
       });
     }
   };
