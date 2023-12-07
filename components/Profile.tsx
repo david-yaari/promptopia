@@ -9,9 +9,9 @@ const Profile = ({
 }: {
   name: string;
   desc: string;
-  data: any;
-  handleEdit: any;
-  handleDelete: any;
+  data: Post[];
+  handleEdit: HandleEdit;
+  handleDelete: HandleDelete;
 }) => {
   return (
     <section className='w-full'>

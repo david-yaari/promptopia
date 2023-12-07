@@ -13,7 +13,7 @@ export const POST = async (req: Request) => {
     newPrompt
       .save()
       .then(() => {
-        console.log('Saved new prompt');
+        //console.log('Saved new prompt');
       })
       .catch((err: Error) => {
         console.log(err);

@@ -58,7 +58,7 @@ const handler = NextAuth({
             image: profile.image,
           })
             .then(() => {
-              console.log('User created');
+              //console.log('User created');
             })
             .catch((err: Error) => {
               console.log(err);

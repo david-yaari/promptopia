@@ -5,17 +5,7 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 
-type Post = {
-  creator: {
-    _id: string;
-    image: string;
-    username: string;
-    email: string;
-  };
-  tag: string;
-  prompt: string;
-  image: string;
-};
+type TagClick = (tag: string) => void;
 
 const PromptCard = ({
   post,
@@ -26,7 +16,7 @@ const PromptCard = ({
   post: Post;
   handleEdit?: MouseEventHandler<HTMLParagraphElement>;
   handleDelete?: MouseEventHandler<HTMLParagraphElement>;
-  handleTagClick?: any;
+  handleTagClick?: TagClick;
 }) => {
   const { data: session } = useSession();
   const pathName = usePathname();
@@ -35,7 +25,9 @@ const PromptCard = ({
   const [copied, setCopied] = useState('');
 
   const handleProfileClick = () => {
-    console.log(post);
+    //console.log(post);
+    //console.log(post.creator._id);
+    //console.log(session?.user.id);
 
     if (post.creator._id === session?.user.id) return router.push('/profile');
 

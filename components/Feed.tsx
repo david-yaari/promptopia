@@ -1,19 +1,21 @@
 'use client';
 
-import { useState, useEffect, MouseEventHandler } from 'react';
+import { useState, useEffect } from 'react';
 
 import PromptCard from './PromptCard';
+
+type TagClick = (tag: string) => void;
 
 const PromptCardList = ({
   data,
   handleTagClick,
 }: {
-  data: any;
-  handleTagClick: any;
+  data: Post[];
+  handleTagClick: TagClick;
 }) => {
   return (
     <div className='mt-16 prompt_layout'>
-      {data.map((post: any) => (
+      {data.map((post: Post) => (
         <PromptCard
           key={post._id}
           post={post}
@@ -37,7 +39,7 @@ const Feed = () => {
   const fetchPosts = async () => {
     const response = await fetch('/api/prompt');
     const data = await response.json();
-
+    //console.log(data);
     setAllPosts(data);
   };
 
@@ -45,17 +47,17 @@ const Feed = () => {
     fetchPosts();
   }, []);
 
-  const filterPrompts = (searchtext: any) => {
+  const filterPrompts = (searchtext: string) => {
     const regex = new RegExp(searchtext, 'i'); // 'i' flag for case-insensitive search
     return allPosts.filter(
-      (item: any) =>
+      (item: Post) =>
         regex.test(item.creator.username) ||
         regex.test(item.tag) ||
         regex.test(item.prompt)
     );
   };
 
-  const handleSearchChange = (e: any) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     clearTimeout(searchTimeout!);
     setSearchText(e.target.value);
 

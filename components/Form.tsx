@@ -1,10 +1,5 @@
 import Link from 'next/link';
 
-type Post = {
-  prompt: string;
-  tag: string;
-};
-
 function Form({
   type,
   post,
@@ -16,7 +11,7 @@ function Form({
   post: Post;
   setPost: (post: Post) => void;
   submitting: boolean;
-  handleSubmit: (params: any) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }) {
   return (
     <section className='w-full max-w-full flex-start flex-col'>

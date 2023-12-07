@@ -4,18 +4,23 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 import Form from '@components/Form';
+import React from 'react';
 
 function CreatePromt() {
   const router = useRouter();
   const { data: session } = useSession();
 
   const [submitting, setSubmitting] = useState(false);
-  const [post, setSPost] = useState({
+  const [post, setSPost] = useState<Post>({
+    _id: '',
+    username: '',
+    email: '',
     prompt: '',
     tag: '',
+    image: '',
   });
 
-  const createPrompt = async (e: any) => {
+  const createPrompt = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
     try {
@@ -39,8 +44,12 @@ function CreatePromt() {
     } finally {
       setSubmitting(false);
       setSPost({
+        _id: '',
+        username: '',
+        email: '',
         prompt: '',
         tag: '',
+        image: '',
       });
     }
   };
