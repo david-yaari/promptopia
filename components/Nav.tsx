@@ -41,8 +41,6 @@ function Nav() {
         />
         <p className='logo_text'>Promptopia</p>
       </Link>
-      {/* <p>Session: {session?.user.email}</p>
-      <p>Provider: {JSON.stringify(providers)}</p> */}
 
       {/* Desktop Navigation */}
       <div className='sm:flex hidden'>
@@ -51,14 +49,20 @@ function Nav() {
             <Link href='/create-prompt' className='black_btn'>
               Create Post
             </Link>
-            <button
+            {/* <button
               type='button'
               onClick={() => signOut}
               className='outline-btn'
             >
               Sign Out
-            </button>
-
+            </button> */}
+            <Link
+              href='#'
+              onClick={() => signOut()}
+              className='outline-btn mt-1'
+            >
+              Sign Out
+            </Link>
             <Link href='/profile' className=''>
               <Image
                 src={session?.user.image!}

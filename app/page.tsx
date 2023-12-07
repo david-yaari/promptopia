@@ -1,6 +1,10 @@
+'use client';
 import Feed from '@components/Feed';
+import { useSession } from 'next-auth/react';
 
 function Home() {
+  const { data: session } = useSession();
+  console.log(session);
   return (
     <section className='w-full flex-center flex-col'>
       <h1 className='head_text text-center'>
@@ -12,8 +16,7 @@ function Home() {
         Promptopia is a modern open-source AI prompting tool for modern world to
         discover, create and share creative prompts.
       </p>
-
-      <Feed />
+      {session && <Feed />}
     </section>
   );
 }
