@@ -10,7 +10,7 @@ const UpdatePrompt = () => {
   const searchParams = useSearchParams();
   const promptId = searchParams.get('id');
 
-  const [post, setPost] = useState({ prompt: '', tag: '' });
+  const [post, setPost] = useState<any>({ prompt: '', tag: '' });
   const [submitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const UpdatePrompt = () => {
     if (promptId) getPromptDetails();
   }, [promptId]);
 
-  const updatePrompt = async (e) => {
+  const updatePrompt = async (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
 
