@@ -45,6 +45,7 @@ const Feed = () => {
 
   useEffect(() => {
     fetchPosts();
+    console.log('fetchPosts');
   }, []);
 
   const filterPrompts = (searchtext: string) => {
