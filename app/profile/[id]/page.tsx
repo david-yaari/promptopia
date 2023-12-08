@@ -9,7 +9,7 @@ const UserProfile = ({ params }: any) => {
   const searchParams = useSearchParams();
   const userName = searchParams.get('name');
 
-  const [userPosts, setUserPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState<Post[]>([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -24,9 +24,15 @@ const UserProfile = ({ params }: any) => {
 
   return (
     <Profile
-      name={userName}
+      name={userName as string}
       desc={`Welcome to ${userName}'s personalized profile page. Explore ${userName}'s exceptional prompts and be inspired by the power of their imagination`}
       data={userPosts}
+      handleEdit={function (post: Post): void {
+        throw new Error('Function not implemented.');
+      }}
+      handleDelete={function (post: Post): void {
+        throw new Error('Function not implemented.');
+      }}
     />
   );
 };
