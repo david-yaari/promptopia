@@ -10,7 +10,7 @@ export const POST = async (req: Request) => {
 
     // console.log(newPrompt);
 
-    newPrompt
+    await newPrompt
       .save()
       .then(() => {
         //console.log('Saved new prompt');
